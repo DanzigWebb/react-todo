@@ -13,13 +13,11 @@ function App() {
   const [load, setLoad] = React.useState(true)
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
+    fetch('https://jsonplaceholder.typicode.com/todos')
       .then(response => response.json())
       .then(todos => {
-        setTimeout(() => {
-          setTodos(todos)
-          setLoad(false)
-        }, 1000);
+        setTodos(todos)
+        setLoad(false)
       })
   }, [])
 
@@ -50,7 +48,7 @@ function App() {
     <Context.Provider value={{ removeTodo, toggleTodo }}>
       <div className="wrapper">
         <h1>React</h1>
-        <Modal />
+        <Modal title="Modal Title" />
         <AddTodo onCreate={addTodo} />
         {
           load
