@@ -1,10 +1,18 @@
 import React from 'react'
+import TodoItem from "./TodoItem";
+
+const styles = {
+  ul: {
+    listStyle: 'none',
+    margin: 0,
+    padding: 0
+  }
+}
 
 export default function TodoList() {
   return (
-    <ul>
-      <li>1</li>
-      <li>2</li>
+    <ul style={styles.ul}>
+      <TodoItem />
     </ul>
   )
 }
