@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './TodoFilter.css';
 import { Search$ } from './FilterStreams'
 
 
@@ -11,6 +12,6 @@ export default function TodoFilter() {
   }
 
   return (
-    <input type="text" placeholder="search..." value={value} onChange={({target}) => onChange(target.value)}/>
+    <input className="filter__input" type="text" placeholder="search..." value={value} onChange={({target}) => onChange(target.value)}/>
   )
 }
