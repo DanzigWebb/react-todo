@@ -7,8 +7,8 @@ export default class Modal extends React.Component {
     isOpen: false
   }
 
-  open = () => this.setState({isOpen: true})
-  close = () => this.setState({isOpen: false})
+  open = () => this.setState({ isOpen: true })
+  close = () => this.setState({ isOpen: false })
 
   render() {
     return (
@@ -19,7 +19,7 @@ export default class Modal extends React.Component {
           <div className="modal">
             <div className="overlay" onClick={() => this.close()}></div>
             <div className="modal__content">
-              <h1>Title</h1>
+              <h1>{this.props.title}</h1>
               <p>Lorem ipsum dolor sit.</p>
               <button onClick={() => this.close()}>Close</button>
             </div>
