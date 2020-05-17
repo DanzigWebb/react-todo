@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import Context from './context'
 
 import TodoList from './Todo/TodoList'
-import AddTodo from './Todo/AddTodo'
 import Loader from './Loader/Loader'
 import Modal from './Modal/Modal'
 import TodoFilter from './Todo/Filter/TodoFilter'
@@ -11,7 +10,7 @@ import { BehaviorSubject } from 'rxjs'
 
 const initialTodos$ = new BehaviorSubject([])
 
-fetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
+fetch('https://jsonplaceholder.typicode.com/todos?_limit=15')
   .then(response => response.json())
   .then(todos => {
     initialTodos$.next(todos)
@@ -36,13 +35,13 @@ function App() {
   }, [])
 
   function toggleTodo(id) {
-    const newTodos = initialTodos$.value.map(todo => {
+    const toggled = (todo) => {
       if (todo.id === id) {
         todo.completed = !todo.completed
       }
       return todo
-    })
-    setTodos(newTodos)
+    }
+    setTodos(todos.map(todo => toggled(todo)))    
   }
 
   function removeTodo(id) {
@@ -64,17 +63,17 @@ function App() {
   return (
     <Context.Provider value={{ removeTodo, toggleTodo, addTodo }}>
       <div className="wrapper">
+        
         <div className="todo__heading">
           <h1>React</h1>
           <Modal title="Create Todo" />
         </div>
 
         <TodoFilter />
-        {
-          load
+
+        {load
             ? <Loader />
-            : todos.length ? <TodoList todos={todos} /> : "No todos"
-        }
+            : todos.length ? <TodoList todos={todos} /> : "No todos"}
 
       </div>
     </Context.Provider>
