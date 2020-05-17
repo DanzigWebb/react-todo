@@ -1,6 +1,8 @@
 import React from 'react'
-import TodoList from './Todo/TodoList'
 import Context from './context'
+
+import TodoList from './Todo/TodoList'
+import AddTodo from './Todo/AddTodo'
 
 function App() {
 
@@ -33,10 +35,11 @@ function App() {
     <Context.Provider value={{ removeTodo }}>
       <div className="wrapper">
         <h1>React</h1>
-
+        <AddTodo />
         {todos.length
           ? <TodoList todos={todos} onToggle={toggleTodo} />
-          : "No todos"}
+          : "No todos"
+        }
 
       </div>
     </Context.Provider>
