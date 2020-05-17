@@ -4,6 +4,7 @@ import Context from './context'
 import TodoList from './Todo/TodoList'
 import AddTodo from './Todo/AddTodo'
 import Loader from './Loader/Loader'
+import Modal from './Modal/Modal'
 
 
 function App() {
@@ -49,9 +50,8 @@ function App() {
     <Context.Provider value={{ removeTodo, toggleTodo }}>
       <div className="wrapper">
         <h1>React</h1>
-
+        <Modal />
         <AddTodo onCreate={addTodo} />
-        
         {
           load
             ? <Loader />

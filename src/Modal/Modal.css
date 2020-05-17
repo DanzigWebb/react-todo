@@ -1,0 +1,41 @@
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: modal .4s ease;
+  z-index: 1;
+}
+
+.overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.modal__content {
+  background-color: #fff;
+  min-width: 300px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 0.8rem;
+  position: relative;
+  z-index: 3;
+}
+
+@keyframes modal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
