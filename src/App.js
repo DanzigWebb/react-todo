@@ -2,17 +2,31 @@ import React from 'react'
 import TodoList from './Todo/TodoList'
 
 function App() {
-  const todos = [
-    {id: 1, completed: false, title: 'Create React App'},
-    {id: 2, completed: false, title: 'Install node'},
-    {id: 3, completed: false, title: 'Save to Github'},
-  ]
+
+  const [todos, setTodos] = React.useState(
+    [
+      { id: 1, completed: false, title: 'Create React App' },
+      { id: 2, completed: true, title: 'Install node' },
+      { id: 3, completed: false, title: 'Save to Github' },
+    ]
+  )
+
+  function toggleTodo(id) {
+    setTodos(
+      todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed
+        }
+        return todo
+      })
+    )
+  }
 
   return (
     <div className="wrapper">
       <h1>React</h1>
 
-      <TodoList todos={todos}/>
+      <TodoList todos={todos} onToggle={toggleTodo} />
     </div>
   );
 }

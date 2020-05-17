@@ -29,3 +29,7 @@ code {
   height: 1rem;
   flex-shrink: 0;
 }
+
+.done {
+  text-decoration: line-through;
+}
