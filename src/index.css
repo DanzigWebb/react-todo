@@ -33,3 +33,8 @@ code {
 .done {
   text-decoration: line-through;
 }
+
+form {
+  margin-bottom: 1rem;
+  width: 100%;
+}

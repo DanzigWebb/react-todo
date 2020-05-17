@@ -31,11 +31,17 @@ function App() {
     )
   }
 
+  function addTodo(title) {
+    setTodos(
+      [...todos, {id: Date.now(), completed: false, title}]
+    )
+  }
+
   return (
     <Context.Provider value={{ removeTodo }}>
       <div className="wrapper">
         <h1>React</h1>
-        <AddTodo />
+        <AddTodo onCreate={addTodo} />
         {todos.length
           ? <TodoList todos={todos} onToggle={toggleTodo} />
           : "No todos"
