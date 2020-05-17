@@ -1,39 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Context from './context'
-import { Subject } from 'rxjs'
 
 import TodoList from './Todo/TodoList'
 import AddTodo from './Todo/AddTodo'
 import Loader from './Loader/Loader'
 import Modal from './Modal/Modal'
-import TodoFilter from './Todo/TodoFilter'
-import { Search$ } from './rxjs/search'
+import TodoFilter from './Todo/Filter/TodoFilter'
+import { Search$, Filtered$ } from './Todo/Filter/FilterStreams'
 
 
 let initialTodos = []
-const filteredTodos = new Subject([])
-const search = Search$.subscribe(value => {
-  console.log('search', value);
+Search$.subscribe(value => {
   const todos = initialTodos.filter(todo => todo.title.includes(value));
-  filteredTodos.next(todos)
+  Filtered$.next(todos)
 })
 
 fetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
   .then(response => response.json())
   .then(todos => {
     initialTodos = todos
-    filteredTodos.next(initialTodos)
+    Filtered$.next(initialTodos)
   })
+
 
 function App() {
 
   const [todos, setTodos] = React.useState([])
   const [load, setLoad] = React.useState(true)
 
-  filteredTodos.subscribe((todos) => {
-    setLoad(false)
-    setTodos(todos)
-  })
+  useEffect(() => {
+    Filtered$.subscribe((todos) => {
+      setLoad(false)
+      setTodos(todos)
+    })
+  }, [])
+
+
 
   function toggleTodo(id) {
     setTodos(

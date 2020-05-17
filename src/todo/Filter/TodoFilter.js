@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Search$ } from '../rxjs/search'
+import { Search$ } from './FilterStreams'
 
 
 export default function TodoFilter() {
