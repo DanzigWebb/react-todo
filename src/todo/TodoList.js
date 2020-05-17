@@ -17,7 +17,6 @@ function TodoList(props) {
         <TodoItem
           todo={todo}
           index={i} 
-          onChange={props.onToggle} 
           key={todo.id} 
         />)}
     </ul>
@@ -26,7 +25,6 @@ function TodoList(props) {
 
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onToggle: PropTypes.func.isRequired
 }
 
 export default TodoList

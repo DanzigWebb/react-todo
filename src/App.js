@@ -38,12 +38,12 @@ function App() {
   }
 
   return (
-    <Context.Provider value={{ removeTodo }}>
+    <Context.Provider value={{ removeTodo, toggleTodo }}>
       <div className="wrapper">
         <h1>React</h1>
         <AddTodo onCreate={addTodo} />
         {todos.length
-          ? <TodoList todos={todos} onToggle={toggleTodo} />
+          ? <TodoList todos={todos} />
           : "No todos"
         }
 
