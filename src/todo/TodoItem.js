@@ -17,7 +17,7 @@ const styles = {
   }
 }
 
-function TodoItem({ todo, index, onChange }) {
+function TodoItem({ todo, index }) {
   const { removeTodo, toggleTodo } = useContext(Context)
   return (
     <li style={styles.li}>
