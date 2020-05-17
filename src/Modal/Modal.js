@@ -1,5 +1,6 @@
 import React from 'react'
 import './Modal.css'
+import AddTodo from '../Todo/AddTodo'
 
 export default class Modal extends React.Component {
 
@@ -13,15 +14,15 @@ export default class Modal extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <button onClick={() => this.open()}>Open</button>
+        <button className="modal__btn" onClick={() => this.open()}>New</button>
 
         {this.state.isOpen && (
           <div className="modal">
             <div className="overlay" onClick={() => this.close()}></div>
             <div className="modal__content">
               <h1>{this.props.title}</h1>
-              <p>Lorem ipsum dolor sit.</p>
-              <button onClick={() => this.close()}>Close</button>
+              <AddTodo />
+              <button className="modal__btn" onClick={() => this.close()}>Close</button>
             </div>
           </div>
         )}

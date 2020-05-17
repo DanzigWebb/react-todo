@@ -53,20 +53,22 @@ function App() {
 
   function addTodo(title) {
     initialTodos$.next(
-      [...initialTodos$.value, { id: Date.now(), completed: false, title }]
+      [{ id: Date.now(), completed: false, title }, ...initialTodos$.value ]
     )
     setTodos(
-      [...todos, { id: Date.now(), completed: false, title }]
+      [{ id: Date.now(), completed: false, title }, ...todos ]
     )
   }
 
 
   return (
-    <Context.Provider value={{ removeTodo, toggleTodo }}>
+    <Context.Provider value={{ removeTodo, toggleTodo, addTodo }}>
       <div className="wrapper">
-        <h1>React</h1>
-        <AddTodo onCreate={addTodo} />
-        <Modal title="Modal Title" />
+        <div className="todo__heading">
+          <h1>React</h1>
+          <Modal title="Create Todo" />
+        </div>
+
         <TodoFilter />
         {
           load

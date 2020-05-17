@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types'
+import React, { useState, useContext } from 'react';
+import Context from '../context';
 
 function useInput(defValue = '') {
   const [value, setValue] = useState(defValue)
@@ -14,27 +14,25 @@ function useInput(defValue = '') {
   }
 }
 
-function AddTodo({ onCreate }) {
+function AddTodo() {
+  const { addTodo } = useContext(Context)
+
   const input = useInput()
 
   function submitHandler(e) {
     e.preventDefault()
     if (input.value().trim()) {
-      onCreate(input.value())
+      addTodo(input.value())
       input.reset()
     }
   }
 
   return (
-    <form onSubmit={submitHandler}>
-      <input {...input.bind} />
-      <button type="submit">Add Todo</button>
+    <form className="filter" onSubmit={submitHandler}>
+      <input className="filter__input" {...input.bind} />
+      <button className="filter__btn" type="submit">Add Todo</button>
     </form>
   )
-}
-
-AddTodo.propTypes = {
-  onCreate: PropTypes.func.isRequired
 }
 
 export default AddTodo

@@ -43,6 +43,12 @@ form {
   display: flex;
   justify-content: center;
 }
+
+.todo__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 /* loader */
 .lds-facebook {
   display: inline-block;
