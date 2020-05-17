@@ -1,5 +1,6 @@
 import React from 'react'
 import TodoList from './Todo/TodoList'
+import Context from './context'
 
 function App() {
 
@@ -22,12 +23,23 @@ function App() {
     )
   }
 
-  return (
-    <div className="wrapper">
-      <h1>React</h1>
+  function removeTodo(id) {
+    setTodos(
+      todos.filter(todo => todo.id !== id)
+    )
+  }
 
-      <TodoList todos={todos} onToggle={toggleTodo} />
-    </div>
+  return (
+    <Context.Provider value={{ removeTodo }}>
+      <div className="wrapper">
+        <h1>React</h1>
+
+        {todos.length
+          ? <TodoList todos={todos} onToggle={toggleTodo} />
+          : "No todos"}
+
+      </div>
+    </Context.Provider>
   );
 }
 
