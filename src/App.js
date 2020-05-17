@@ -7,21 +7,16 @@ import Loader from './Loader/Loader'
 import Modal from './Modal/Modal'
 import TodoFilter from './Todo/Filter/TodoFilter'
 import { Search$, Filtered$ } from './Todo/Filter/FilterStreams'
+import { BehaviorSubject } from 'rxjs'
 
-
-let initialTodos = []
-Search$.subscribe(value => {
-  const todos = initialTodos.filter(todo => todo.title.includes(value));
-  Filtered$.next(todos)
-})
+const initialTodos$ = new BehaviorSubject([])
 
 fetch('https://jsonplaceholder.typicode.com/todos?_limit=20')
   .then(response => response.json())
   .then(todos => {
-    initialTodos = todos
-    Filtered$.next(initialTodos)
+    initialTodos$.next(todos)
+    Filtered$.next(initialTodos$.value)
   })
-
 
 function App() {
 
@@ -33,28 +28,33 @@ function App() {
       setLoad(false)
       setTodos(todos)
     })
+
+    Search$.subscribe(value => {
+      const filter = initialTodos$.value.filter(todo => todo.title.includes(value))
+      Filtered$.next(filter)
+    })
   }, [])
 
-
-
   function toggleTodo(id) {
-    setTodos(
-      todos.map(todo => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed
-        }
-        return todo
-      })
-    )
+    const newTodos = initialTodos$.value.map(todo => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed
+      }
+      return todo
+    })
+    setTodos(newTodos)
   }
 
   function removeTodo(id) {
-    setTodos(
-      todos.filter(todo => todo.id !== id)
-    )
+    const newTodos = initialTodos$.value.filter(todo => todo.id !== id)
+    initialTodos$.next(newTodos)
+    setTodos(todos.filter(todo => todo.id !== id))
   }
 
   function addTodo(title) {
+    initialTodos$.next(
+      [...initialTodos$.value, { id: Date.now(), completed: false, title }]
+    )
     setTodos(
       [...todos, { id: Date.now(), completed: false, title }]
     )
